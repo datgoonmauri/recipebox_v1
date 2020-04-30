@@ -1,0 +1,18 @@
+<h1>{{data.name}}</h1>
+<ul>
+        Biography:
+        <div/>
+        <ul>
+            <li>{{data.bio}}</li>
+        </ul>
+        Recipes:
+        <div/>
+        <ul>
+                {%for recipe in recipes%}
+                <li>
+                <a href="/recipe/{{recipe.id}}">{{recipe.title}}</a>
+                </li>
+                {%endfor%}
+        </ul>
+</ul>
+<div><a href="/">Return to home</a></div>
