@@ -12,7 +12,7 @@ class Author(models.Model):
 
 
 class RecipeModel(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=40)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     description = models.TextField()
     timereq = models.CharField(max_length=15)
