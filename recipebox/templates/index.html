@@ -1,16 +1,32 @@
 <h1>Welcome to Recipe Box</h1>
+
+<p>Hello {{request.user.username.title}}, Welcome to Recipe Box.</p>
+<p>Here is a list of the latest recipes:</p>
 <ul>
-{%for recipe in data%}
-<li>
-<a href="recipe/{{recipe.id}}">{{recipe.title}}</a> | by: <a href="author/{{recipe.author.id}}">{{recipe.author}}</a>
-</li>
-{%endfor%}
+    {%for recipe in data%}
+    <li>
+        <a href="recipe/{{recipe.id}}">{{recipe.title}}</a> | by: <a href="author/{{recipe.author.id}}">{{recipe.author}}</a>
+    </li>
+    {%endfor%}
     <p>
-    <a href="addrecipe/">
-        Add Recipe
-    </a>
-    |
-    <a href="addauthor/">
-        Add Author
-    </a>
+        {%if request.user.is_authenticated%}
+        <a href="addrecipe/">
+            Add Recipe
+        </a>
+        |
+        {%else%}
+        <a href="login/">
+            Login
+        </a>
+        |
+        {%endif%}
+        {% if request.user.is_staff %}
+        <a href="addauthor/">
+            Add Author
+        </a>
+        |
+        {%endif%}
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
 </ul>
