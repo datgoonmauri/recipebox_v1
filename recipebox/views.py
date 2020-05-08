@@ -49,6 +49,7 @@ def recipe(request, id=1):
 def add_recipe(request):
     html = 'generic_form.html'
     # breakpoint()
+
     if request.method == "POST":
         form = AddRecipeForm(request.POST)
         if form.is_valid():
@@ -62,7 +63,8 @@ def add_recipe(request):
             )
             return HttpResponseRedirect(reverse('homepage'))
     form = AddRecipeForm()
-
+    if not request.user.is_staff:
+        form.fields['author'].queryset = Author.objects.filter(name=request.user.author.name)
     return render(request, html, {'Form':form})
 
 
@@ -82,3 +84,4 @@ def loginview(request):
 def logoutview(request):
     logout(request)
     return HttpResponseRedirect(reverse('homepage'))
+
