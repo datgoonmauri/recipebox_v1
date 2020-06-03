@@ -5,15 +5,27 @@
 <ul>
     {%for recipe in data%}
     <li>
+
+        {% if request.user == recipe.author.user %}
+<p>
+  <a href="/editrecipe/{{recipe.id}}/">Edit Recipe</a>
+    {%if recipe in request.author.favorite.all%}
+    <a href='/favorite/{{data.recipe.id}}'>Favorite</a>
+        {%else%}
+<a href='/unfavorite/{{data.recipe.id}}'>Unfavorite</a>
+        {%endif%}
+</p>
+{% endif %}
         <a href="recipe/{{recipe.id}}">{{recipe.title}}</a> | by: <a href="author/{{recipe.author.id}}">{{recipe.author}}</a>
     </li>
     {%endfor%}
     <p>
         {%if request.user.is_authenticated%}
+
         <a href="addrecipe/">
             Add Recipe
         </a>
-        |
+
         {%else%}
         <a href="login/">
             Login
